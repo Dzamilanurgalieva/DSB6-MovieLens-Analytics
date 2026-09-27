@@ -1,5 +1,3 @@
-
-
 import csv
 import datetime
 import re
@@ -500,9 +498,6 @@ class Links:
             return 0
     
     def _parse_runtime(self, runtime_str):
-        """
-        Parse runtime string to minutes
-        """
         if not runtime_str:
             return 0
         
@@ -524,11 +519,6 @@ class Links:
         return hours * 60 + minutes
     
     def get_imdb(self, list_of_movies, list_of_fields):
-        """
-        The method returns a list of lists [movieId, field1, field2, field3, ...] 
-        for the list of movies given as the argument (movieId).
-        Sort it by movieId descendingly.
-        """
         results = []
         
         for movie_id in list_of_movies:
@@ -553,10 +543,6 @@ class Links:
         return results
     
     def top_directors(self, n):
-        """
-        The method returns a dict with top-n directors where the keys are directors and 
-        the values are numbers of movies created by them. Sort it by numbers descendingly.
-        """
         director_counter = Counter()
         
         for movie_id, link_info in self.links_data.items():
@@ -577,10 +563,6 @@ class Links:
     
 
     def most_expensive(self, n):
-        """
-        The method returns a dict with top-n movies where the keys are movie titles and
-        the values are their budgets. Sort it by budgets descendingly.
-        """
         movie_budgets = {}
         for mid, link in self.links_data.items():
             soup = self._get_imdb_page(link['imdbId'])
@@ -597,11 +579,6 @@ class Links:
         return dict(sorted(movie_budgets.items(), key=lambda x: x[1], reverse=True)[:n])
     
     def most_profitable(self, n):
-        """
-        The method returns a dict with top-n movies where the keys are movie titles and
-        the values are the difference between cumulative worldwide gross and budget.
-        Sort it by the difference descendingly.
-        """
         movie_profits = {}
         
         for movie_id, link_info in self.links_data.items():
